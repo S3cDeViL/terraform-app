@@ -2,7 +2,7 @@ version: '3'
 services:
   myapp:
     build: ./myapp
-    command: gunicorn -w 1 --bind 0.0.0.0:8000 config.wsgi
+    command: gunicorn -w 1 --bind 0.0.0.0:8000 myapp.wsgi
     ports:
       - "8000:8000"
 
