@@ -1,0 +1,19 @@
+version: '3'
+services:
+  myapp:
+    image: 294598740507.dkr.ecr.ap-northeast-1.amazonaws.com/myapp:latest
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/myapp
+        awslogs-region: ap-northeast-1
+        awslogs-stream-prefix: myapp
+
+  nginx:
+    image: 294598740507.dkr.ecr.ap-northeast-1.amazonaws.com/nginx:latest
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/nginx
+        awslogs-region: ap-northeast-1
+        awslogs-stream-prefix: nginx
