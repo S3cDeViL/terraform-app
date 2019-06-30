@@ -122,14 +122,14 @@ resource "aws_security_group" "tsujimoto_app_security_group" {
   }
 
   tags {
-    Name = "tsujimoto_app API SG"
+    Name = "tsujimoto_app SG"
   }
 }
 
 
 # Step8: alb用のs3バケットの作成
-resource "aws_s3_bucket" "tsujimoto_app_alb_log" {
-  bucket = "tsujimoto-app-alb-log" 
+resource "aws_s3_bucket" "tsujimoto_app_alb_log_bucket" {
+  bucket = "tsujimoto-app-alb-log-bucket" 
   lifecycle_rule {
     enabled = true
     expiration {
@@ -142,7 +142,7 @@ data "aws_iam_policy_document" "tsujimoto_alb_log" {
   statement {
     effect = "Allow"
     actions = ["s3:PutObject"]
-    resources = ["arn:aws:s3:::${aws_s3_bucket.tsujimoto_app_alb_log.id}/*"]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.tsujimoto_app_alb_log_bucket.id}/*"]
     principals {
       type = "AWS"
       identifiers = ["582318560864"]
@@ -151,7 +151,7 @@ data "aws_iam_policy_document" "tsujimoto_alb_log" {
 }
 
 resource "aws_s3_bucket_policy" "tsujimoto_app_alb_log" {
-  bucket = "${aws_s3_bucket.tsujimoto_app_alb_log.id}"
+  bucket = "${aws_s3_bucket.tsujimoto_app_alb_log_bucket.id}"
   policy = "${data.aws_iam_policy_document.tsujimoto_alb_log.json}"
 }
 
@@ -167,7 +167,7 @@ resource "aws_alb" "tsujimoto_app_alb" {
   internal = false
   enable_deletion_protection = true
   access_logs {
-    bucket = "${aws_s3_bucket.tsujimoto_app_alb_log.id}"
+    bucket = "${aws_s3_bucket.tsujimoto_app_alb_log_bucket.id}"
     enabled = true
   }
 }
