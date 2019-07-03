@@ -202,8 +202,8 @@ resource "aws_alb_listener" "tsujimoto_app" {
 }
 
 # Step10: ecsクラスターの作成
-resource "aws_ecs_cluster" "tsujimoto_app" {
-  name = "tsujimoto_app"
+resource "aws_ecs_cluster" "tsujimotoapp" {
+  name = "tsujimotoapp"
 }
 
 

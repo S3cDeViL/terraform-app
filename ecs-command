@@ -5,20 +5,18 @@ ecs-cli \
         --file docker-compose.production.yml \
         --ecs-params ecs-params.yml \
         --region ap-northeast-1 \
-        --cluster tsujimoto_app \
-        --project-name mypro \
+        --project-name myappproject \
     service up \
         --target-group-arn arn:aws:elasticloadbalancing:ap-northeast-1:294598740507:targetgroup/tsujimoto-app-alb-target-group/41c164d963f49806 \
         --container-name nginx \
-        --container-port 80 \
-        --force-deployment
+        --container-port 80
 
 ecs-cli \
-    compose \ 
+    compose \
         --verbose \
         --file docker-compose.yml \
         --file docker-compose.production.yml \
         --ecs-params ecs-params.yml \
         --region ap-northeast-1 \
-        --cluster prototype-cluster \
+        --project-name myappproject \
     service down 
